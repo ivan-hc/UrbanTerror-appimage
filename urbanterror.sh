@@ -52,8 +52,20 @@ _appimage_basics() {
 
 _appimage_basics
 
-# CONVERT THE APPDIR TO AN APPIMAGE
-ARCH=x86_64 VERSION="$VERSION" _appimagetool -s ./"$APP".AppDir 2>&1
+#############################################################################
+#	CREATE THE APPIMAGE
+#############################################################################
+
+APPNAME=$(cat ./"$APP".AppDir/*.desktop | grep 'Name=' | head -1 | cut -c 6- | sed 's/ /-/g')
+REPO="UrbanTerror-appimage"
+TAG="continuous"
+VERSION="$VERSION"
+UPINFO="gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|$REPO|$TAG|*x86_64.AppImage.zsync"
+
+ARCH=x86_64 _appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 20 \
+	-u "$UPINFO" \
+	./"$APP".AppDir "$APPNAME"_"$VERSION"-x86_64.AppImage
+
 if ! test -f ./*.AppImage; then
 	echo "No AppImage available."; exit 1
 fi

@@ -6,7 +6,7 @@ ARCH="x86_64"
 
 # DEPENDENCIES
 
-dependencies="ar tar"
+dependencies="unzip"
 for d in $dependencies; do
 	if ! command -v "$d" 1>/dev/null; then
 		echo "ERROR: missing command \"d\", install the above and retry" && exit 1

@@ -33,7 +33,7 @@ unzip -qq ./*zip 1>/dev/null && rm -f ./*zip && mv ./UrbanTerror*/* "$APP".AppDi
 
 _appimage_basics() {
 	# Icon
-	curl -#Lo "$APP".png https://aur.archlinux.org/cgit/aur.git/plain/urbanterror.png?h=urbanterror 2>/dev/null && mv "$APP".png "$APP".AppDir/
+	curl -#Lo "$APP".png https://raw.githubusercontent.com/Portable-Linux-Apps/Portable-Linux-Apps.github.io/refs/heads/main/icons/urbanterror.png 2>/dev/null && mv "$APP".png "$APP".AppDir/
 	
 	# Launcher
 	cat <<-HEREDOC >> ./"$APP".AppDir/"$APP".desktop

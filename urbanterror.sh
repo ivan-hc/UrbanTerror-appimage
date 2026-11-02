@@ -16,7 +16,6 @@ done
 _appimagetool() {
 	if ! command -v appimagetool 1>/dev/null; then
 		[ ! -f ./appimagetool ] && curl -#Lo appimagetool https://github.com/pkgforge-dev/appimagetool/releases/latest/download/appimagetool-"$ARCH"-linux && chmod a+x ./appimagetool
-		[ ! -f ./appimagetool ] && curl -#Lo mkdwarfs https://github.com/mhx/dwarfs/releases/download/v0.15.6/dwarfs-universal-0.15.6-Linux-"$ARCH" && chmod a+x ./mkdwarfs
 		./appimagetool "$@"
 	else
 		appimagetool "$@"

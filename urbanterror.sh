@@ -15,7 +15,7 @@ done
 
 _appimagetool() {
 	if ! command -v appimagetool 1>/dev/null; then
-		[ ! -f ./appimagetool ] && curl -#Lo appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-"$ARCH".AppImage && chmod a+x ./appimagetool
+		[ ! -f ./appimagetool ] && curl -#Lo appimagetool https://github.com/pkgforge-dev/appimagetool/releases/latest/download/appimagetool-"$ARCH"-linux && chmod a+x ./appimagetool
 		./appimagetool "$@"
 	else
 		appimagetool "$@"
@@ -59,12 +59,13 @@ _appimage_basics
 APPNAME=$(cat ./"$APP".AppDir/*.desktop | grep 'Name=' | head -1 | cut -c 6- | sed 's/ /-/g')
 REPO="UrbanTerror-appimage"
 TAG="continuous"
-VERSION="$VERSION"
 UPINFO="gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|$REPO|$TAG|*x86_64.AppImage.zsync"
 
-ARCH=x86_64 _appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 20 \
+cp ./"$APP".AppDir/"$APP".png ./"$APP".AppDir/.DirIcon
+
+APPIMAGE_ARCH=x86_64 VERSION="$VERSION" _appimagetool \
 	-u "$UPINFO" \
-	./"$APP".AppDir "$APPNAME"_"$VERSION"-x86_64.AppImage
+	./"$APP".AppDir -n "$APPNAME"_"$VERSION"-x86_64.AppImage
 
 if ! test -f ./*.AppImage; then
 	echo "No AppImage available."; exit 1

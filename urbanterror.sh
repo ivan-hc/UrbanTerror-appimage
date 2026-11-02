@@ -60,12 +60,11 @@ _appimage_basics
 APPNAME=$(cat ./"$APP".AppDir/*.desktop | grep 'Name=' | head -1 | cut -c 6- | sed 's/ /-/g')
 REPO="UrbanTerror-appimage"
 TAG="continuous"
-VERSION="$VERSION"
 UPINFO="gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|$REPO|$TAG|*x86_64.AppImage.zsync"
 
 cp ./"$APP".AppDir/"$APP".png ./"$APP".AppDir/.DirIcon
 
-APPIMAGE_ARCH=x86_64 _appimagetool \
+APPIMAGE_ARCH=x86_64 VERSION="$VERSION" _appimagetool \
 	-u "$UPINFO" \
 	./"$APP".AppDir -n "$APPNAME"_"$VERSION"-x86_64.AppImage
 
